@@ -1,0 +1,28 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+# Step 1: Open browser and navigate
+driver = webdriver.Chrome()
+driver.get("https://www.lambdatest.com/selenium-playground")
+
+# Step 2: Click “Simple Form Demo”
+driver.find_element(By.LINK_TEXT, "Simple Form Demo").click()
+
+# Step 3: Validate URL
+assert "simple-form-demo" in driver.current_url, "Incorrect page loaded"
+
+# Step 4: Define message variable
+message = "Welcome to LambdaTest"
+
+# Step 5: Enter message
+input_box = driver.find_element(By.ID, "user-message")
+input_box.send_keys(message)
+
+# Step 6: Click “Get Checked Value”
+driver.find_element(By.ID, "showInput").click()
+
+# Step 7: Validate output
+output = driver.find_element(By.ID, "message").text
+assert output == message, f"Expected '{message}' but got '{output}'"
+
+driver.quit()
